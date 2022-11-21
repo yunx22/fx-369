@@ -1,0 +1,505 @@
+<!-- 
+  Modified Based off http://love.aismy.top/buildlove2?color=pink&&music=no&&label= 
+  Implemented  By Yunx
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/jquery.min.js"></script>
+  </head>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+    html,
+    body {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      background: #000;
+      overflow: hidden;
+    }
+
+    .aa {
+      position: fixed;
+      left: 50%;
+      bottom: 10px;
+      color: #ccc;
+    }
+
+    .container {
+      width: 100%;
+      height: 100%;
+    }
+    canvas {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+    #pinkboard {
+      animation: anim 1.5s ease-in-out infinite;
+      -webkit-animation: anim 1.5s ease-in-out infinite;
+      -o-animation: anim 1.5s ease-in-out infinite;
+      -moz-animation: anim 1.5s ease-in-out infinite;
+    }
+    #bgm {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+    audio {
+      width: 100%;
+    }
+
+    @keyframes anim {
+      0% {
+          transform: scale(0.8);
+      }
+      25% {
+          transform: scale(0.7);
+      }
+      50% {
+          transform: scale(1);
+      }
+      75% {
+          transform: scale(0.7);
+      }
+      100% {
+          transform: scale(0.8);
+      }
+    }
+
+    @-webkit-keyframes anim {
+      0% {
+          -webkit-transform: scale(0.8);
+      }
+      25% {
+          -webkit-transform: scale(0.7);
+      }
+      50% {
+          -webkit-transform: scale(1);
+      }
+      75% {
+          -webkit-transform: scale(0.7);
+      }
+      100% {
+          -webkit-transform: scale(0.8);
+      }
+    }
+
+    @-o-keyframes anim {
+      0% {
+          -o-transform: scale(0.8);
+      }
+      25% {
+          -o-transform: scale(0.7);
+      }
+      50% {
+          -o-transform: scale(1);
+      }
+      75% {
+          -o-transform: scale(0.7);
+      }
+      100% {
+          -o-transform: scale(0.8);
+      }
+    }
+
+    @-moz-keyframes anim {
+      0% {
+          -moz-transform: scale(0.8);
+      }
+      25% {
+          -moz-transform: scale(0.7);
+      }
+      50% {
+          -moz-transform: scale(1);
+      }
+      75% {
+          -moz-transform: scale(0.7);
+      }
+      100% {
+          -moz-transform: scale(0.8);
+      }
+    }
+
+    #name {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin-top: -20px;
+        font-size: 30px;
+        color: pink;
+    }
+
+  </style>
+  <body>
+    <canvas id="floating-words" class="container"> </canvas>
+    <div id="bgm" align="center">
+      <!-- <audio autoplay="" controls="" loop="infinite">
+        <source src="http://music.163.com/song/media/outer/url?&id=1968062978.mp3" type="audio/mpeg">
+      </audio> -->
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=100% height=86 src="http://music.163.com/outchain/player?type=2&id=1981046832&auto=1&height=66"></iframe>
+    </div>
+    <!-- 樱花 -->
+    <div id="heart-container" class="container">
+      <!-- 爱心 -->
+      <canvas id="pinkboard" class="container"> </canvas>
+    </div>
+  </body>
+</html>
+
+<script type="text/javascript">
+
+    const colors = [
+        "#a287d5",
+        "#bcb2d5",
+        "#2b71aa",
+        "#f1b04c",
+
+    ]; //用来设置的颜色
+    var canvas = document.getElementById("floating-words");
+    var ctx = canvas.getContext("2d");
+    let count = 1;
+
+    var ww = window.innerWidth;
+    var wh = window.innerHeight;
+
+    var labels = [];
+
+    function init() {
+        requestAnimationFrame(render);
+        canvas.width = ww;
+        canvas.height = wh;
+        for (var i = 0; i < 100; i++) {
+            labels.push(new Label());
+        }
+    }
+
+    function Label() {
+        this.x = Math.random() * ww;
+        this.y = Math.random() * wh;
+        this.opacity = Math.random() * 0.5 + 0.5;
+        this.vel = {
+            x: (Math.random() - 0.5) * 4,
+            y: (Math.random() - 0.5) * 4,
+        };
+        this.targetScale = Math.random() * 0.15 + 0.02;
+        this.scale = this.targetScale * Math.random();
+    }
+
+    Label.prototype.update = function (i) {
+        this.x += this.vel.x;
+        this.y += this.vel.y;
+
+        this.scale += (this.targetScale - this.scale) * 0.01;
+        if (this.x - this.width > ww || this.x + this.width < 0) {
+            this.scale = 0;
+            this.x = Math.random() * ww;
+        }
+        if (this.y - this.height > wh || this.y + this.height < 0) {
+            this.scale = 0;
+            this.y = Math.random() * wh;
+        }
+        this.width = 473.8;
+        this.height = 408.6;
+    };
+    Label.prototype.draw = function (i) {
+        ctx.globalAlpha = this.opacity;
+        ctx.font = `${180 * this.scale}px "微软雅黑"`;
+        // ctx.font="20px";
+        ctx.fillStyle = colors[i % 4];
+        ctx.fillText(
+            "369⚡️",
+            this.x - this.width * 0.5,
+            this.y - this.height * 0.5,
+            this.width,
+            this.height
+        );
+    };
+
+    function render() {
+        ctx.clearRect(0, 0, ww, wh);
+        for (var i = 0; i < 100; i++) {
+            labels[i].update(i);
+            labels[i].draw(i);
+        }
+        requestAnimationFrame(render);
+    }
+
+    init();
+
+    window.addEventListener("resize", function () {
+        ww = window.innerWidth;
+        wh = window.innerHeight;
+    });
+</script>
+
+<script>
+    /*
+     * Settings
+     */
+    var settings = {
+      particles: {
+        length: 500, // maximum amount of particles
+        duration: 2, // particle duration in sec
+        velocity: -10, // particle velocity in pixels/sec
+        effect: -0.90, // play with this for a nice effect
+        size: 30, // particle size in pixels
+      },
+    };
+
+    (function () {
+      var b = 0;
+      var c = ["ms", "moz", "webkit", "o"];
+      for (var a = 0; a < c.length && !window.requestAnimationFrame; ++a) {
+        window.requestAnimationFrame = window[c[a] + "RequestAnimationFrame"];
+        window.cancelAnimationFrame =
+          window[c[a] + "CancelAnimationFrame"] ||
+          window[c[a] + "CancelRequestAnimationFrame"];
+      }
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = function (h, e) {
+          var d = new Date().getTime();
+          var f = Math.max(0, 16 - (d - b));
+          var g = window.setTimeout(function () {
+            h(d + f);
+          }, f);
+          b = d + f;
+          return g;
+        };
+      }
+      if (!window.cancelAnimationFrame) {
+        window.cancelAnimationFrame = function (d) {
+          clearTimeout(d);
+        };
+      }
+    })();
+
+    /*
+     * Point class
+     */
+    var Point = (function () {
+      function Point(x, y) {
+        this.x = typeof x !== "undefined" ? x : 0;
+        this.y = typeof y !== "undefined" ? y : 0;
+      }
+      Point.prototype.clone = function () {
+        return new Point(this.x, this.y);
+      };
+      Point.prototype.length = function (length) {
+        if (typeof length == "undefined")
+          return Math.sqrt(this.x * this.x + this.y * this.y);
+        this.normalize();
+        this.x *= length;
+        this.y *= length;
+        return this;
+      };
+      Point.prototype.normalize = function () {
+        var length = this.length();
+        this.x /= length;
+        this.y /= length;
+        return this;
+      };
+      return Point;
+    })();
+
+    /*
+     * Particle class
+     */
+    var Particle = (function () {
+      function Particle() {
+        this.position = new Point();
+        this.velocity = new Point();
+        this.acceleration = new Point();
+        this.age = 0;
+      }
+      Particle.prototype.initialize = function (x, y, dx, dy) {
+        this.position.x = x;
+        this.position.y = y;
+        this.velocity.x = dx;
+        this.velocity.y = dy;
+        this.acceleration.x = dx * settings.particles.effect;
+        this.acceleration.y = dy * settings.particles.effect;
+        this.age = 0;
+      };
+      Particle.prototype.update = function (deltaTime) {
+        this.position.x += this.velocity.x * deltaTime;
+        this.position.y += this.velocity.y * deltaTime;
+        this.velocity.x += this.acceleration.x * deltaTime;
+        this.velocity.y += this.acceleration.y * deltaTime;
+        this.age += deltaTime;
+      };
+      Particle.prototype.draw = function (context, image) {
+        function ease(t) {
+          return --t * t * t + 1;
+        }
+        var size = image.width * ease(this.age / settings.particles.duration);
+        context.globalAlpha = 1 - this.age / settings.particles.duration;
+        context.drawImage(
+          image,
+          this.position.x - size / 2,
+          this.position.y - size / 2,
+          size,
+          size
+        );
+      };
+      return Particle;
+    })();
+
+    /*
+     * ParticlePool class
+     */
+    var ParticlePool = (function () {
+      var particles,
+        firstActive = 0,
+        firstFree = 0,
+        duration = settings.particles.duration;
+
+      function ParticlePool(length) {
+        // create and populate particle pool
+        particles = new Array(length);
+        for (var i = 0; i < particles.length; i++)
+          particles[i] = new Particle();
+      }
+      ParticlePool.prototype.add = function (x, y, dx, dy) {
+        particles[firstFree].initialize(x, y, dx, dy);
+
+        // handle circular queue
+        firstFree++;
+        if (firstFree == particles.length) firstFree = 0;
+        if (firstActive == firstFree) firstActive++;
+        if (firstActive == particles.length) firstActive = 0;
+      };
+      ParticlePool.prototype.update = function (deltaTime) {
+        var i;
+
+        // update active particles
+        if (firstActive < firstFree) {
+          for (i = firstActive; i < firstFree; i++)
+            particles[i].update(deltaTime);
+        }
+        if (firstFree < firstActive) {
+          for (i = firstActive; i < particles.length; i++)
+            particles[i].update(deltaTime);
+          for (i = 0; i < firstFree; i++) particles[i].update(deltaTime);
+        }
+
+        // remove inactive particles
+        while (
+          particles[firstActive].age >= duration &&
+          firstActive != firstFree
+        ) {
+          firstActive++;
+          if (firstActive == particles.length) firstActive = 0;
+        }
+      };
+      ParticlePool.prototype.draw = function (context, image) {
+        // draw active particles
+        if (firstActive < firstFree) {
+          for (i = firstActive; i < firstFree; i++)
+            particles[i].draw(context, image);
+        }
+        if (firstFree < firstActive) {
+          for (i = firstActive; i < particles.length; i++)
+            particles[i].draw(context, image);
+          for (i = 0; i < firstFree; i++) particles[i].draw(context, image);
+        }
+      };
+      return ParticlePool;
+    })();
+
+    /*
+     * Putting it all together
+     */
+    (function (canvas) {
+      var context = canvas.getContext("2d"),
+        particles = new ParticlePool(settings.particles.length),
+        particleRate =
+          settings.particles.length / settings.particles.duration, // particles/sec
+        time;
+
+      // get point on symbol with 0 <= t <= 10
+      function pointOnSymbol(t) {
+        if (t > 0 && t < 2) {
+          return new Point(-160*Math.sin(t)+40, -200*Math.sin(t)+225)
+        } else if (t > 2 && t < 3) {
+          return new Point(-150*Math.sin(t), 0)
+        } else if (t > 3 && t < 5) {
+          return new Point(50 * Math.sin(t) - 10, 150 * Math.sin(t) -20)
+        } else if (t > 5 && t < 7) {
+          return new Point(-120 * Math.sin(t), -140 * Math.sin(t) - 100)
+        } else if (t > 7 && t < 8) {
+          return new Point(170 * Math.cos(t) - 10, 50)
+        }
+        return new Point(40 * Math.sin(t) - 5, 95*Math.sin(t) + 100)
+      }
+
+      // creating the particle image using a dummy canvas
+      var image = (function () {
+        var canvas = document.createElement("canvas"),
+        context = canvas.getContext("2d");
+
+        context.font = "20px sans-serif";
+        context.fillStyle = "#ea80b0";
+        context.textAlign = "center";
+        context.fillText(
+            "⚡️", 
+            canvas.width/2,
+            canvas.height/2);
+
+        // create the image
+        var image = new Image();
+        image.src = canvas.toDataURL();
+        return image;
+      })();
+
+      // render that thing!
+      function render() {
+        // next animation frame
+        requestAnimationFrame(render);
+
+        // update time
+        var newTime = new Date().getTime() / 1000,
+          deltaTime = newTime - (time || newTime);
+        time = newTime;
+
+        // clear canvas
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        // create new particles
+        var amount = particleRate * deltaTime;
+        for (var i = 0; i < amount; i++) {
+          var pos = pointOnSymbol(10*Math.random());
+          var dir = pos.clone().length(settings.particles.velocity*2);
+          particles.add(
+            canvas.width / 2 + pos.x,
+            canvas.height / 2 - pos.y,
+            dir.x,
+            -dir.y
+          );
+        }
+
+        // update and draw particles
+        particles.update(deltaTime);
+        particles.draw(context, image);
+      }
+
+      // handle (re-)sizing of the canvas
+      function onResize() {
+        canvas.width = canvas.clientWidth;
+        canvas.height = canvas.clientHeight;
+      }
+      window.onresize = onResize;
+
+      // delay rendering bootstrap
+      setTimeout(function () {
+        onResize();
+        render();
+      }, 10);
+    })(document.getElementById("pinkboard"));
+  </script>
