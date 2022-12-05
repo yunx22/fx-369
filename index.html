@@ -1,504 +1,184 @@
 <!-- 
   Created By Yunx
-  Modified Based off http://love.aismy.top/buildlove2?color=pink&&music=no&&label= 
+
+  Loading page modified based off http://love.aismy.top/buildlove2?color=pink&&music=no&&label= 
+
+  Used Start Bootstrap - Grayscale v7.0.5 (https://startbootstrap.com/theme/grayscale)
+  Copyright 2013-2022 Start Bootstrap
+  Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-grayscale/blob/master/LICENSE)
+
+  Just me playing around with personal websites
+  Anyone may freely use this code. Just don't sue me if it breaks stuff.
+  Last Updated: Dec 4th, 2022.
 -->
+
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8">
-    <title></title>
-    <script src="js/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>369</title>
+
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- CSS -->
+    <link href="css/styles.css" rel="stylesheet" type="text/css">
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
   </head>
-  <style>
-    * {
-      padding: 0;
-      margin: 0;
-    }
-    html,
-    body {
-      height: 100%;
-      padding: 0;
-      margin: 0;
-      background: #000;
-      overflow: hidden;
-    }
 
-    .aa {
-      position: fixed;
-      left: 50%;
-      bottom: 10px;
-      color: #ccc;
-    }
-
-    .container {
-      width: 100%;
-      height: 100%;
-    }
-    canvas {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-    }
-    #pinkboard {
-      animation: anim 1.5s ease-in-out infinite;
-      -webkit-animation: anim 1.5s ease-in-out infinite;
-      -o-animation: anim 1.5s ease-in-out infinite;
-      -moz-animation: anim 1.5s ease-in-out infinite;
-    }
-    #bgm {
-      position: fixed;
-      width: 100%;
-    }
-    audio {
-      width: 100%;
-    }
-
-    @keyframes anim {
-      0% {
-          transform: scale(0.8);
-      }
-      25% {
-          transform: scale(0.7);
-      }
-      50% {
-          transform: scale(1);
-      }
-      75% {
-          transform: scale(0.7);
-      }
-      100% {
-          transform: scale(0.8);
-      }
-    }
-
-    @-webkit-keyframes anim {
-      0% {
-          -webkit-transform: scale(0.8);
-      }
-      25% {
-          -webkit-transform: scale(0.7);
-      }
-      50% {
-          -webkit-transform: scale(1);
-      }
-      75% {
-          -webkit-transform: scale(0.7);
-      }
-      100% {
-          -webkit-transform: scale(0.8);
-      }
-    }
-
-    @-o-keyframes anim {
-      0% {
-          -o-transform: scale(0.8);
-      }
-      25% {
-          -o-transform: scale(0.7);
-      }
-      50% {
-          -o-transform: scale(1);
-      }
-      75% {
-          -o-transform: scale(0.7);
-      }
-      100% {
-          -o-transform: scale(0.8);
-      }
-    }
-
-    @-moz-keyframes anim {
-      0% {
-          -moz-transform: scale(0.8);
-      }
-      25% {
-          -moz-transform: scale(0.7);
-      }
-      50% {
-          -moz-transform: scale(1);
-      }
-      75% {
-          -moz-transform: scale(0.7);
-      }
-      100% {
-          -moz-transform: scale(0.8);
-      }
-    }
-
-    #name {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        margin-top: -20px;
-        font-size: 30px;
-        color: pink;
-    }
-
-  </style>
-  <body>
-    <canvas id="floating-words" class="container"> </canvas>
-    <div id="bgm" align="center">
-      <audio autoplay="" controls="" loop="infinite">
-        <source src="http://music.163.com/song/media/outer/url?&id=1981046832.mp3" type="audio/mpeg">
-      </audio>
-      <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=100% height=86 src="https://music.163.com/outchain/player?type=2&id=1981046832&auto=1&height=66"></iframe> -->
+  <body onload="loaderFunc()" id="page-top">
+    <div id=loader>
+      <canvas id="symbol" class="loaderContainer"> </canvas>
+      <canvas id="floating-words" class="loaderContainer"> </canvas>
     </div>
-    <!-- 樱花 -->
-    <div id="heart-container" class="container">
-      <!-- 爱心 -->
-      <canvas id="pinkboard" class="container"> </canvas>
+
+    <div style="display:none;" id="mainBlock">
+      <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="#page-top">梵星社·369</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <header class="masthead text-center text-black d-flex">
+          <div class="container my-auto">
+            <div class="row">
+              <div class="col-lg-10 mx-auto">
+                <h1 class="mx-auto my-0 text-uppercase">
+                  <strong>Fx.369⚡️</strong>
+                </h1>
+                <hr class="divider my-4" />
+              </div>
+              <div class="col-lg-8 mx-auto">
+                <h2 class="text-white-50 mx-auto mt-2 mb-5">梵星社·F5队长</h2>
+                <a class="btn btn-primary btn-xl" href="#about">Find Out More!</a>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- About-->
+        <section class="about-section text-center" id="about">
+          <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+              <div class="col-lg-8">
+                <h1 class="text-white my-0 text-uppercase">
+                  <strong>About</strong>
+                </h1>
+                <hr class="divider my-4" />
+                <h2 class="text-white mb-4">歌手·哄睡主播·美食主播</h2>
+                <p class="text-white-50">
+                  代表作：《布加迪》《山魂》《黑猫》
+                </p>
+              </div>
+            </div>
+            <img class="img-fluid" src="assets/img/banner.jpg" alt="..." />
+          </div>
+        </section>
+
+        <!-- Skills -->
+        <section class="projects-section bg-light" id="skills">
+          <div class="container px-4 px-lg-5">
+            <div class="justify-content-center">
+              <div class="col-lg-8">
+                <h1 class="my-0 text-uppercase">
+                  <strong>Skills</strong>
+                </h1>
+                <hr class="divider my-4" />
+              </div>
+            </div>
+            <!-- Featured Project Row-->
+            <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
+                <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="assets/img/songlist.jpeg" alt="..." /></div>
+                <div class="col-xl-4 col-lg-5">
+                    <div class="featured-text text-center text-lg-left">
+                        <h4>擅长</h4>
+                        <p class="text-black-50 mb-0">RAP·流行</p>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Contact-->
+        <section class="contact-section bg-black" id="contact">
+            <div class="container px-4 px-lg-5">
+                <div class="justify-content-center">
+                  <div class="col-lg-8">
+                    <h1 class="text-white my-0 text-uppercase">
+                      <strong>Contact</strong>
+                    </h1>
+                    <hr class="divider my-4" />
+                  </div>
+                </div>
+
+                <div class="row gx-4 gx-lg-5">
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100">
+                            <div class="card-body text-center">
+                                <i class="material-icons text-primary mb-2">tiktok</i>
+                                <h4 class="text-uppercase m-0">Tiktok</h4>
+                                <hr class="my-4 mx-auto" />
+                                <div class="small text-black-50">San6Ju</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100">
+                            <div class="card-body text-center">
+                                <i class="material-icons text-primary mb-2">wechat</i>
+                                <h4 class="text-uppercase m-0">Wechat</h4>
+                                <hr class="my-4 mx-auto" />
+                                <div class="small text-black-50">callme_369</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100">
+                            <div class="card-body text-center">
+                                <i class="material-icons text-primary mb-2">bolt</i>
+                                <h4 class="text-uppercase m-0">Weibo</h4>
+                                <hr class="my-4 mx-auto" />
+                                <div class="small text-black-50">三百六十九_</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Footer-->
+        <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; Your Website 2022</div></footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <div class="bgm" align="center">
+          <audio autoplay="" controls="" loop="infinite">
+            <source src="http://music.163.com/song/media/outer/url?&id=1981046832.mp3" type="audio/mpeg">
+          </audio>
+          <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=100% height=86 src="http://music.163.com/outchain/player?type=3&id=2513419860&auto=1&height=66"></iframe> -->
+        </div>
     </div>
   </body>
 </html>
 
-<script type="text/javascript">
-
-    const colors = [
-        "#a287d5",
-        "#bcb2d5",
-        "#2b71aa",
-        "#f1b04c",
-
-    ]; //用来设置的颜色
-    var canvas = document.getElementById("floating-words");
-    var ctx = canvas.getContext("2d");
-    let count = 1;
-
-    var ww = window.innerWidth;
-    var wh = window.innerHeight;
-
-    var labels = [];
-
-    function init() {
-        requestAnimationFrame(render);
-        canvas.width = ww;
-        canvas.height = wh;
-        for (var i = 0; i < 100; i++) {
-            labels.push(new Label());
-        }
-    }
-
-    function Label() {
-        this.x = Math.random() * ww;
-        this.y = Math.random() * wh;
-        this.opacity = Math.random() * 0.5 + 0.5;
-        this.vel = {
-            x: (Math.random() - 0.5) * 4,
-            y: (Math.random() - 0.5) * 4,
-        };
-        this.targetScale = Math.random() * 0.15 + 0.02;
-        this.scale = this.targetScale * Math.random();
-    }
-
-    Label.prototype.update = function (i) {
-        this.x += this.vel.x;
-        this.y += this.vel.y;
-
-        this.scale += (this.targetScale - this.scale) * 0.01;
-        if (this.x - this.width > ww || this.x + this.width < 0) {
-            this.scale = 0;
-            this.x = Math.random() * ww;
-        }
-        if (this.y - this.height > wh || this.y + this.height < 0) {
-            this.scale = 0;
-            this.y = Math.random() * wh;
-        }
-        this.width = 473.8;
-        this.height = 408.6;
-    };
-    Label.prototype.draw = function (i) {
-        ctx.globalAlpha = this.opacity;
-        ctx.font = `${180 * this.scale}px "微软雅黑"`;
-        // ctx.font="20px";
-        ctx.fillStyle = colors[i % 4];
-        ctx.fillText(
-            "369⚡️",
-            this.x - this.width * 0.5,
-            this.y - this.height * 0.5,
-            this.width,
-            this.height
-        );
-    };
-
-    function render() {
-        ctx.clearRect(0, 0, ww, wh);
-        for (var i = 0; i < 100; i++) {
-            labels[i].update(i);
-            labels[i].draw(i);
-        }
-        requestAnimationFrame(render);
-    }
-
-    init();
-
-    window.addEventListener("resize", function () {
-        ww = window.innerWidth;
-        wh = window.innerHeight;
-    });
-</script>
-
-<script>
-    /*
-     * Settings
-     */
-    var settings = {
-      particles: {
-        length: 500, // maximum amount of particles
-        duration: 2, // particle duration in sec
-        velocity: -10, // particle velocity in pixels/sec
-        effect: -0.90, // play with this for a nice effect
-        size: 30, // particle size in pixels
-      },
-    };
-
-    (function () {
-      var b = 0;
-      var c = ["ms", "moz", "webkit", "o"];
-      for (var a = 0; a < c.length && !window.requestAnimationFrame; ++a) {
-        window.requestAnimationFrame = window[c[a] + "RequestAnimationFrame"];
-        window.cancelAnimationFrame =
-          window[c[a] + "CancelAnimationFrame"] ||
-          window[c[a] + "CancelRequestAnimationFrame"];
-      }
-      if (!window.requestAnimationFrame) {
-        window.requestAnimationFrame = function (h, e) {
-          var d = new Date().getTime();
-          var f = Math.max(0, 16 - (d - b));
-          var g = window.setTimeout(function () {
-            h(d + f);
-          }, f);
-          b = d + f;
-          return g;
-        };
-      }
-      if (!window.cancelAnimationFrame) {
-        window.cancelAnimationFrame = function (d) {
-          clearTimeout(d);
-        };
-      }
-    })();
-
-    /*
-     * Point class
-     */
-    var Point = (function () {
-      function Point(x, y) {
-        this.x = typeof x !== "undefined" ? x : 0;
-        this.y = typeof y !== "undefined" ? y : 0;
-      }
-      Point.prototype.clone = function () {
-        return new Point(this.x, this.y);
-      };
-      Point.prototype.length = function (length) {
-        if (typeof length == "undefined")
-          return Math.sqrt(this.x * this.x + this.y * this.y);
-        this.normalize();
-        this.x *= length;
-        this.y *= length;
-        return this;
-      };
-      Point.prototype.normalize = function () {
-        var length = this.length();
-        this.x /= length;
-        this.y /= length;
-        return this;
-      };
-      return Point;
-    })();
-
-    /*
-     * Particle class
-     */
-    var Particle = (function () {
-      function Particle() {
-        this.position = new Point();
-        this.velocity = new Point();
-        this.acceleration = new Point();
-        this.age = 0;
-      }
-      Particle.prototype.initialize = function (x, y, dx, dy) {
-        this.position.x = x;
-        this.position.y = y;
-        this.velocity.x = dx;
-        this.velocity.y = dy;
-        this.acceleration.x = dx * settings.particles.effect;
-        this.acceleration.y = dy * settings.particles.effect;
-        this.age = 0;
-      };
-      Particle.prototype.update = function (deltaTime) {
-        this.position.x += this.velocity.x * deltaTime;
-        this.position.y += this.velocity.y * deltaTime;
-        this.velocity.x += this.acceleration.x * deltaTime;
-        this.velocity.y += this.acceleration.y * deltaTime;
-        this.age += deltaTime;
-      };
-      Particle.prototype.draw = function (context, image) {
-        function ease(t) {
-          return --t * t * t + 1;
-        }
-        var size = image.width * ease(this.age / settings.particles.duration);
-        context.globalAlpha = 1 - this.age / settings.particles.duration;
-        context.drawImage(
-          image,
-          this.position.x - size / 2,
-          this.position.y - size / 2,
-          size,
-          size
-        );
-      };
-      return Particle;
-    })();
-
-    /*
-     * ParticlePool class
-     */
-    var ParticlePool = (function () {
-      var particles,
-        firstActive = 0,
-        firstFree = 0,
-        duration = settings.particles.duration;
-
-      function ParticlePool(length) {
-        // create and populate particle pool
-        particles = new Array(length);
-        for (var i = 0; i < particles.length; i++)
-          particles[i] = new Particle();
-      }
-      ParticlePool.prototype.add = function (x, y, dx, dy) {
-        particles[firstFree].initialize(x, y, dx, dy);
-
-        // handle circular queue
-        firstFree++;
-        if (firstFree == particles.length) firstFree = 0;
-        if (firstActive == firstFree) firstActive++;
-        if (firstActive == particles.length) firstActive = 0;
-      };
-      ParticlePool.prototype.update = function (deltaTime) {
-        var i;
-
-        // update active particles
-        if (firstActive < firstFree) {
-          for (i = firstActive; i < firstFree; i++)
-            particles[i].update(deltaTime);
-        }
-        if (firstFree < firstActive) {
-          for (i = firstActive; i < particles.length; i++)
-            particles[i].update(deltaTime);
-          for (i = 0; i < firstFree; i++) particles[i].update(deltaTime);
-        }
-
-        // remove inactive particles
-        while (
-          particles[firstActive].age >= duration &&
-          firstActive != firstFree
-        ) {
-          firstActive++;
-          if (firstActive == particles.length) firstActive = 0;
-        }
-      };
-      ParticlePool.prototype.draw = function (context, image) {
-        // draw active particles
-        if (firstActive < firstFree) {
-          for (i = firstActive; i < firstFree; i++)
-            particles[i].draw(context, image);
-        }
-        if (firstFree < firstActive) {
-          for (i = firstActive; i < particles.length; i++)
-            particles[i].draw(context, image);
-          for (i = 0; i < firstFree; i++) particles[i].draw(context, image);
-        }
-      };
-      return ParticlePool;
-    })();
-
-    /*
-     * Putting it all together
-     */
-    (function (canvas) {
-      var context = canvas.getContext("2d"),
-        particles = new ParticlePool(settings.particles.length),
-        particleRate =
-          settings.particles.length / settings.particles.duration, // particles/sec
-        time;
-
-      // get point on symbol with 0 <= t <= 10
-      function pointOnSymbol(t) {
-        if (t > 0 && t < 2) {
-          return new Point(-160*Math.sin(t)+40, -200*Math.sin(t)+225)
-        } else if (t > 2 && t < 3) {
-          return new Point(-150*Math.sin(t), 0)
-        } else if (t > 3 && t < 5) {
-          return new Point(50 * Math.sin(t) - 10, 150 * Math.sin(t) -20)
-        } else if (t > 5 && t < 7) {
-          return new Point(-120 * Math.sin(t), -140 * Math.sin(t) - 100)
-        } else if (t > 7 && t < 8) {
-          return new Point(170 * Math.cos(t) - 10, 50)
-        }
-        return new Point(40 * Math.sin(t) - 5, 95*Math.sin(t) + 100)
-      }
-
-      // creating the particle image using a dummy canvas
-      var image = (function () {
-        var canvas = document.createElement("canvas"),
-        context = canvas.getContext("2d");
-
-        context.font = "20px sans-serif";
-        context.fillStyle = "#ea80b0";
-        context.textAlign = "center";
-        context.fillText(
-            "⚡️", 
-            canvas.width/2,
-            canvas.height/2);
-
-        // create the image
-        var image = new Image();
-        image.src = canvas.toDataURL();
-        return image;
-      })();
-
-      // render that thing!
-      function render() {
-        // next animation frame
-        requestAnimationFrame(render);
-
-        // update time
-        var newTime = new Date().getTime() / 1000,
-          deltaTime = newTime - (time || newTime);
-        time = newTime;
-
-        // clear canvas
-        context.clearRect(0, 0, canvas.width, canvas.height);
-
-        // create new particles
-        var amount = particleRate * deltaTime;
-        for (var i = 0; i < amount; i++) {
-          var pos = pointOnSymbol(10*Math.random());
-          var dir = pos.clone().length(settings.particles.velocity*2);
-          particles.add(
-            canvas.width / 2 + pos.x,
-            canvas.height / 2 - pos.y,
-            dir.x,
-            -dir.y
-          );
-        }
-
-        // update and draw particles
-        particles.update(deltaTime);
-        particles.draw(context, image);
-      }
-
-      // handle (re-)sizing of the canvas
-      function onResize() {
-        canvas.width = canvas.clientWidth;
-        canvas.height = canvas.clientHeight;
-      }
-      window.onresize = onResize;
-
-      // delay rendering bootstrap
-      setTimeout(function () {
-        onResize();
-        render();
-      }, 10);
-    })(document.getElementById("pinkboard"));
-  </script>
+<script src="js/names.js" type="text/javascript"></script>
+<script src="js/symbol.js" type="text/javascript"></script>
+<script src="js/load.js" type="text/javascript"></script>
+<script src="js/scripts.js"></script>
