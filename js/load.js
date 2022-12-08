@@ -1,6 +1,6 @@
 var preLoad;
 function loaderFunc() {
-	preLoad = setTimeout(showPage, 2000);
+	preLoad = setTimeout(showPage, 1500);
 }
 
 function showPage() {
